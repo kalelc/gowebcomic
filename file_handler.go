@@ -2,26 +2,11 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
-	"io/ioutil"
-	"log"
 	"os"
 	"strconv"
 )
 
 const ComicPATH = "data/"
-
-func ListFiles() {
-	files, err := ioutil.ReadDir("./data")
-
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	for _, f := range files {
-		fmt.Println(f.Name())
-	}
-}
 
 func SaveFile(comic *Comic) {
 	data, err := json.Marshal(comic)
