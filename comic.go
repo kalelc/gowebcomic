@@ -1,7 +1,6 @@
 package main
 
 const ServerURL = "https://xkcd.com"
-const Limit = 2000
 
 type Comic struct {
 	Month      string `json:"month"`
