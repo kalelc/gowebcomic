@@ -9,7 +9,7 @@ import (
 
 const ComicPATH = "data/"
 
-func SearchFile(name string) (status bool) {
+func SearchFile(name string) (comic *Comic, status bool) {
 	files, err := ioutil.ReadDir("data/")
 
 	HandlerError(err)
@@ -17,6 +17,13 @@ func SearchFile(name string) (status bool) {
 	for _, file := range files {
 		if name == file.Name() {
 			status = true
+			jsonFile, err := os.Open("data/" + name)
+
+			HandlerError(err)
+
+			if err := json.NewDecoder(jsonFile).Decode(&comic); err != nil {
+				HandlerError(err)
+			}
 			break
 		}
 	}
