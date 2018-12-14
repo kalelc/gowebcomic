@@ -1,19 +1,30 @@
 package main
 
 import (
+	"log"
 	"os"
 	"strconv"
 )
 
 func main() {
-	var status bool
-	for _, x := range os.Args[1:] {
-		status = SearchFile(x)
+	x := os.Args[1:][0]
 
-		if !status {
-			num, err := strconv.Atoi(x)
-			HandlerError(err)
-			Get(num)
-		}
+	var status bool
+	var comic *Comic
+	var err error
+
+	comic, status = SearchFile(x)
+
+	num, err := strconv.Atoi(x)
+
+	HandlerError(err)
+
+	if !status {
+		comic, err = Get(num)
+		HandlerError(err)
+	}
+
+	if err := templ.Execute(os.Stdout, comic); err != nil {
+		log.Fatal(err)
 	}
 }
