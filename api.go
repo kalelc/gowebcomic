@@ -7,7 +7,7 @@ import (
 	"strconv"
 )
 
-func Get(num int) {
+func Get(num int) (*Comic, error) {
 	url := ServerURL + "/" + strconv.Itoa(num) + "/info.0.json"
 	fmt.Println(url)
 	resp, err := http.Get(url)
@@ -16,10 +16,11 @@ func Get(num int) {
 
 	if resp.StatusCode != http.StatusOK {
 		resp.Body.Close()
-		fmt.Errorf("element not found: %s", resp.Status)
+		return nil, fmt.Errorf("element not found: %s", resp.Status)
 	}
 
 	var result Comic
+
 	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
 		resp.Body.Close()
 		HandlerError(err)
@@ -27,4 +28,6 @@ func Get(num int) {
 	resp.Body.Close()
 
 	SaveFile(&result)
+
+	return &result, err
 }
