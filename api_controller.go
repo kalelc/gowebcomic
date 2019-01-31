@@ -1,9 +1,8 @@
 package main
 
 import (
-	"log"
+	"encoding/json"
 	"net/http"
-	"os"
 	"strconv"
 
 	"github.com/gorilla/mux"
@@ -28,8 +27,10 @@ func Show(w http.ResponseWriter, r *http.Request) {
 		HandlerError(err)
 	}
 
-	if err := templ.Execute(os.Stdout, comic); err != nil {
-		log.Fatal(err)
-	}
+	w.Header().Set("Content-Type", "application/json")
+	payload, err := json.Marshal(comic)
 
+	HandlerError(err)
+
+	w.Write(payload)
 }
