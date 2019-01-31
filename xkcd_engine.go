@@ -7,6 +7,8 @@ import (
 	"strconv"
 )
 
+const ServerURL = "https://xkcd.com"
+
 func Get(num int) (*Comic, error) {
 	url := ServerURL + "/" + strconv.Itoa(num) + "/info.0.json"
 	fmt.Println(url)
