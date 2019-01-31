@@ -1,21 +1,24 @@
 package main
 
 import (
+	"flag"
 	"log"
 	"os"
 	"strconv"
 )
 
+var number = flag.Int("number", 1, "Is the number of commic to downloads")
+
 func main() {
-	x := os.Args[1:][0]
+	flag.Parse()
+
+	num := *number
 
 	var status bool
 	var comic *Comic
 	var err error
 
-	comic, status = SearchFile(x)
-
-	num, err := strconv.Atoi(x)
+	comic, status = SearchFile(strconv.Itoa(num))
 
 	HandlerError(err)
 
