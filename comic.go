@@ -1,7 +1,5 @@
 package main
 
-const ServerURL = "https://xkcd.com"
-
 type Comic struct {
 	Month      string `json:"month"`
 	Num        int    `json:"num"`
