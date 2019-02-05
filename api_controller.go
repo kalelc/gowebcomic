@@ -37,7 +37,7 @@ func Show(w http.ResponseWriter, r *http.Request) {
 
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
 		w.Header().Set("Content-Type", "application/json")
-		payload, err := json.Marshal(comic)
+		payload, _ := json.Marshal(comic)
 		fmt.Println(claims)
 		w.Write(payload)
 	} else {
